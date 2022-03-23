@@ -12,7 +12,7 @@ import com.example.k2022_03_08_rv.model.RadioStations
 import java.util.zip.Inflater
 
 
-lateinit var allStations : Array<RadioStation>
+lateinit var allStations : MutableList<RadioStation>
 
 class RadioAdapter(var radioStations: RadioStations) : RecyclerView.Adapter<RadioAdapter.RadioViewHolder> () {
 
@@ -54,7 +54,7 @@ class RadioAdapter(var radioStations: RadioStations) : RecyclerView.Adapter<Radi
     }
 
     override fun getItemCount(): Int {
-        return radioStations.size()
+        return allStations.size
     }
 
 }

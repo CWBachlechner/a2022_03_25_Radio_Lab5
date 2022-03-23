@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         radioButton = findViewById(R.id.on_off_button)
 
-        var stations: Array<RadioStation> = radioStations.getStations()
+        var stations: MutableList<RadioStation> = radioStations.getStations()
 
         var url = stations[1].uri.toString()
         setUpRadio(url)
