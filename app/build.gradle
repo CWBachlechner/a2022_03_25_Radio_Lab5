@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.k2022_03_08_rv"
+        applicationId "com.example.a2022_03_25_Radio_Lab5"
         minSdk 31
         targetSdk 32
         versionCode 1

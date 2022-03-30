@@ -1,4 +1,4 @@
-package com.example.k2022_03_08_rv
+package com.example.a2022_03_25_Radio_Lab5
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

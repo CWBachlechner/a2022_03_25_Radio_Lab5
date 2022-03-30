@@ -1,18 +1,23 @@
-package com.example.k2022_03_08_rv
+package com.example.a2022_03_25_Radio_Lab5
 
-import android.view.InflateException
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.k2022_03_08_rv.model.RadioStation
-import com.example.k2022_03_08_rv.model.RadioStations
-import java.util.zip.Inflater
+import com.example.a2022_03_25_Radio_Lab5.model.RadioStation
+import com.example.a2022_03_25_Radio_Lab5.model.RadioStations
+import com.example.a2022_03_25_Radio_Lab5.MainActivity
+import com.example.a2022_03_25_Radio_Lab5.model.MyMediaPlayer
 
 
 lateinit var allStations : MutableList<RadioStation>
+
+private var radioOn: Boolean = false
+private var initialized: Boolean = false
+
+var myMediaPlayer: MyMediaPlayer = MyMediaPlayer()
 
 class RadioAdapter(var radioStations: RadioStations) : RecyclerView.Adapter<RadioAdapter.RadioViewHolder> () {
 
@@ -29,6 +34,8 @@ class RadioAdapter(var radioStations: RadioStations) : RecyclerView.Adapter<Radi
         var name : TextView = itemView.findViewById(R.id.name_text)
         var uri : TextView = itemView.findViewById(R.id.uri_text)
         var whichCard: Int = 0
+        var selected: Int = 0
+
 
         fun bind(position: Int) {
             name.text = allStations[position].name
@@ -38,7 +45,28 @@ class RadioAdapter(var radioStations: RadioStations) : RecyclerView.Adapter<Radi
         }
 
         override fun onClick(p0: View?) {
-            Toast.makeText(p0?.context, "Hello: " + whichCard.toString(), Toast.LENGTH_LONG).show()
+            var url = allStations[whichCard].uri.toString()
+            if(!initialized) {
+                myMediaPlayer?.setUpRadio(url)
+                initialized = true
+            }
+
+            if (radioOn) {
+                if(selected == whichCard){
+                    myMediaPlayer?.pause()
+                    Toast.makeText(p0?.context, "Pausing: " + allStations[whichCard].name, Toast.LENGTH_LONG).show()
+                }
+                else {
+                    myMediaPlayer?.setAndPrepareRadioLink(url)
+                    Toast.makeText(p0?.context, "Listening To: " + allStations[whichCard].name, Toast.LENGTH_LONG).show()
+                }
+            }
+            else {
+                myMediaPlayer?.setAndPrepareRadioLink(url)
+                Toast.makeText(p0?.context, "Listening To: " + allStations[whichCard].name, Toast.LENGTH_LONG).show()
+            }
+            radioOn = !radioOn
+            selected = whichCard
         }
 
     }
